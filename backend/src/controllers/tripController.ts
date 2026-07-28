@@ -116,7 +116,7 @@ export const generateTrip = async (req: Request, res: Response) => {
 export const getTrip = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const tripSession = await TripSession.findOne({ sessionId: id });
+    const tripSession = await TripSession.findOne({ sessionId: id } as any);
     if (!tripSession) {
       return res.status(404).json({ error: "Trip not found" });
     }
@@ -132,7 +132,7 @@ export const updateTrip = async (req: Request, res: Response) => {
     const { itinerary } = req.body;
 
     const tripSession = await TripSession.findOneAndUpdate(
-      { sessionId: id },
+      { sessionId: id } as any,
       { itinerary },
       { returnDocument: "after" }
     );
@@ -152,7 +152,7 @@ export const tweakTrip = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { instruction, currentItinerary } = req.body;
 
-    const tripSession = await TripSession.findOne({ sessionId: id });
+    const tripSession = await TripSession.findOne({ sessionId: id } as any);
     if (!tripSession) {
       return res.status(404).json({ error: "Trip not found" });
     }
